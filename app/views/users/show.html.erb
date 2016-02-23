@@ -1,2 +1,11 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h1>Hello <%= @user.first_name %></h1>
+
+
+
+<% @user.addresses.each do |address| %>
+<p><%= address.street1 %></p>
+<p><%= address.street2 %></p>
+<p><%= address.city %></p>
+<p><%= address.state %></p>
+<p><%= address.zipcode %></p>
+<% end %>

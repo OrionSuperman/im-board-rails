@@ -1,2 +1,11 @@
-<h1>Sessions#index</h1>
-<p>Find me in app/views/sessions/index.html.erb</p>
+<h1>Welcome to I'm Board</h1>
+<form action='/users/create' method='post'>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<label for='first_name'>First Name</label><input type='text' name='user[first_name]' placeholder='First Name'>
+<label for='last_name'>Last Name</label><input type='text' name='user[last_name]' placeholder='Last Name'>
+<label for='username'>Username</label><input type='text' name='user[username]' placeholder='username'>
+<label for='email'>Email</label><input type='text' name='user[email]' placeholder='email'>
+<label for='password'>Password</label><input type='password' name='user[password]' placeholder='Password'>
+<label for='password_confirmation'>Confirm Password</label><input type='password' name='user[password_confirmation]' placeholder='Confirm Password'>
+<input type='submit' value='Register'>
+</form>

@@ -1,2 +1,8 @@
-<h1>Users#edit</h1>
-<p>Find me in app/views/users/edit.html.erb</p>
+<form action='/users/<%= @user.id %>' method='post'>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<input type='hidden' name='_method' value='patch'>
+<label for='first_name'>First Name</label><input type='text' name='first_name' value='<%= @user.first_name %>'>
+<label for='last_name'>Last Name</label><input type='text' name='last_name' value='<%= @user.last_name %>'>
+<label for='email'>Email</label><input type='text' name='email' value='<%= @user.email %>'>
+<input type='submit' value='Update Profile'>
+</form>
