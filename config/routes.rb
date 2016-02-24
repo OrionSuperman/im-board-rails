@@ -11,17 +11,17 @@ Rails.application.routes.draw do
 
   get 'addresses/new'
 
-  get 'addresses/edit'
+  get 'addresses/:id/edit' => 'addresses#edit'
 
   get 'addresses/show'
 
-  patch 'addresses/update'
+  patch 'addresses/:id' => 'addresses#update'
 
   delete 'addresses/destroy'
 
   post 'user_infos/create'
 
-  patch 'user_infos/update'
+  patch 'user_infos/:id' => 'user_infos#update'
 
   get 'users/index'
 

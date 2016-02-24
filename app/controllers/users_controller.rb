@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect_to "/users/#{user.id}"
     else
-      flash[:errors] = user.errors
+      flash[:errors] = user.errors.full_messages
       redirect_to "/"
     end
   end
@@ -19,6 +19,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @addresses = @user.addresses
   end
 
   def show
@@ -30,11 +31,13 @@ class UsersController < ApplicationController
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
     user.email = params[:email]
+    user.about = params[:about]
+    user.description = params[:description]
     if user.valid?
       user.save
       redirect_to "/users/#{user.id}"
     else
-      flash[:errors] = user.errors
+      flash[:errors] = user.errors.full_messages
       redirect_to "/users/#{user.id}"
     end
   end
