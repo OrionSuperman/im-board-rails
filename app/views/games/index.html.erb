@@ -1,4 +1,7 @@
-<p><a href='/games/new'>Add a new game!</a></p>
+<h1>Games</h1>
+<form action='/games/new'>
+    <button value='submit' class="btn btn-default">Add New Game</button>
+</form>
 
 <table class="table table-hover">
     <thead>
@@ -7,6 +10,11 @@
         <th>Description</th>
         <th>Players</th>
         <th>Game Length</th>
+        <th>Categories</th>
+        <% if @user %>
+        <th>Own the game?</th>
+        <th>Actions</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +24,50 @@
     		<td><%= game.description %></td>
     		<td><%= game.minplayers %>-<%= game.maxplayers %> players</td>
     		<td><%= game.length %></td>
+            <td>
+                <% game.categories.each do |category| %>
+                    <a href='/categories/<%= category.name %>' alt='Other games in this category'><%= category.name %> </a>
+                <% end %>
+            </td>
+            <% if @user %>
+        		<td>
+        		<% if @owned.include?(game) %>
+        			Owned!
+        			<% end %>
+
+        		</td>
+        		<td>
+        			<% if @user %>
+        				<% if @owned.include?(game) %>
+        				
+        				<form action='/users/removegame' method='post' class="form-horizontal" role="form">
+    						<input type='hidden' name='game_id' value='<%= game.id %>'>
+    						<input type='hidden' name='_method' value='delete'>
+    						<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    					  <div class="form-group"> 
+    					    <div class="col-sm-10">
+    					      <button type="submit" class="btn btn-default">Remove</button>
+    					    </div>
+    					  </div>
+
+    					</form>
+        				<% else %>
+    	    			<form action='/users/addgame' method='post' class="form-horizontal" role="form">
+    						<input type='hidden' name='game_id' value='<%= game.id %>'>
+    						<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    					  <div class="form-group"> 
+    					    <div class="col-sm-10">
+    					      <button type="submit" class="btn btn-default">Add to collection</button>
+    					    </div>
+    					  </div>
+
+    					</form>
+    					<% end %>
+    				<% else %>
+    				<a href='/register' alt='Register for your account'>Login or Register</a> to add to your collection.
+    				<% end %>
+        		</td>
+            <% end %>
     	</tr>
 	<% end %>
     </tbody>

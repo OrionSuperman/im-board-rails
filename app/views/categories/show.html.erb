@@ -1,2 +1,66 @@
-<h1>Categories#show</h1>
-<p>Find me in app/views/categories/show.html.erb</p>
+<h1><%= @category.name %></h1>
+<h3>Games that list <%= @category.name %>:</h3>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Game Name</th>
+        <th>Description</th>
+        <th>Players</th>
+        <th>Game Length</th>
+        <% if @user %>
+        <th>Own the game?</th>
+        <th>Actions</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+    <% @category.games.each do |game| %>
+    	<tr>
+    		<td><a href="/games/<%= game.id %>"><%= game.name %></a></td>
+    		<td><%= game.description %></td>
+    		<td><%= game.minplayers %>-<%= game.maxplayers %> players</td>
+    		<td><%= game.length %></td>
+            <% if @user %>
+        		<td>
+        		<% if @owned.include?(game) %>
+        			Owned!
+        			<% end %>
+
+        		</td>
+        		<td>
+        			<% if @user %>
+        				<% if @owned.include?(game) %>
+        				
+        				<form action='/users/removegame' method='post' class="form-horizontal" role="form">
+    						<input type='hidden' name='game_id' value='<%= game.id %>'>
+    						<input type='hidden' name='_method' value='delete'>
+    						<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    					  <div class="form-group"> 
+    					    <div class="col-sm-10">
+    					      <button type="submit" class="btn btn-default">Remove</button>
+    					    </div>
+    					  </div>
+
+    					</form>
+        				<% else %>
+    	    			<form action='/users/addgame' method='post' class="form-horizontal" role="form">
+    						<input type='hidden' name='game_id' value='<%= game.id %>'>
+    						<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    					  <div class="form-group"> 
+    					    <div class="col-sm-10">
+    					      <button type="submit" class="btn btn-default">Add to collection</button>
+    					    </div>
+    					  </div>
+
+    					</form>
+    					<% end %>
+    				<% else %>
+    				<a href='/register' alt='Register for your account'>Login or Register</a> to add to your collection.
+    				<% end %>
+        		</td>
+            <% end %>
+    	</tr>
+	<% end %>
+    </tbody>
+  </table>

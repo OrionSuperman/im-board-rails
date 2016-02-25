@@ -1,4 +1,4 @@
-class GameHasCategory < ActiveRecord::Base
+class Gamecategory < ActiveRecord::Base
   belongs_to :game
   belongs_to :category
 end

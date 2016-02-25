@@ -1,7 +1,15 @@
 
 <h3><%= @game.name %></h3>
+<p><a href='/games/<%= @game.id %>/edit' alt="Edit this game's information">Edit game info</a></p>
 <img src='<%= @game.image %>' alt="Image of game">
 <p>Game Length: <%= @game.length %></p>
-<p><%= @game.minplayers %>-<%= @game.maxplayers %> players</p>
+<p>Players: <%= @game.minplayers %>-<%= @game.maxplayers %> players</p>
 <p>Description: <%= @game.description %></p>
 <p>About: <%= @game.about %></p>
+
+<p>Categories: 
+<% letter = '' %>
+<% @categories.each do |category| %>
+	<a href='/categories/<%= category.name %>' alt='games that have <%= category.name %>'><%= category.name %> </a>
+<% end %>
+</p>

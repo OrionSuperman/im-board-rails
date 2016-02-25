@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @games = @user.games
   end
 
   def update
@@ -51,6 +52,27 @@ class UsersController < ApplicationController
       flash[:errors] =  "There is an error preventing account deletion. Please post a trouble ticket and we will resolve the issue."
       redirect_to "/users/#{session[:user_id]}"
     end
+  end
+
+  def addgame
+    user = User.find(session[:user_id])
+    game = Game.find(params[:game_id])
+    owns = Usergame.new(user: user, game: game)
+    if owns.valid?
+      owns.save
+      redirect_to '/games'
+    else
+      flash[:errors] = "I just don't know what went wrong. Submit a trouble ticket and we'll get this resolved. :)"
+      redirect_to '/games'
+    end
+  end
+
+  def removegame
+    user = User.find(session[:user_id])
+    game = Game.find(params[:game_id])
+    own = Usergame.where(user: user).where(game: game)
+    own.destroy
+    redirect_to "/games"
   end
 
   private

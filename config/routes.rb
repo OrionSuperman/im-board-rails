@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'events/index'
+
+  get 'events/show'
+
+  get 'events/new'
+
+  get 'events/create'
+
+  get 'events/edit'
+
+  get 'events/update'
+
+  get 'events/destroy'
+
   #######################
   # User Reviews
   #######################
@@ -40,13 +54,13 @@ Rails.application.routes.draw do
   # Game categories
   #######################
 
-  get 'categories/index'
+  get 'categories/' => 'categories#index'
 
   get 'categories/new'
 
   get 'categories/create'
 
-  get 'categories/show'
+  get 'categories/:name' => 'categories#show'
 
   get 'categories/edit'
 
@@ -66,16 +80,18 @@ Rails.application.routes.draw do
 
   get 'games/:id' => 'games#show'
 
-  get 'games/edit'
+  get 'games/:id/edit' => 'games#edit'
 
-  get 'games/update'
+  patch 'games/:id' => 'games#update'
 
-  get 'games/destroy'
+  delete 'games/:id' => 'games#destroy'
 
   #######################
   # Sessions
   #######################
   root 'sessions#index'
+
+  get '/register' => 'sessions#register'
 
   get '/' => 'sessions#index'
 
@@ -102,10 +118,10 @@ Rails.application.routes.draw do
   #######################
   # Users
   #######################
+  
+  post 'users/addgame' => 'users#addgame'
 
-  post 'user_infos/create'
-
-  patch 'user_infos/:id' => 'user_infos#update'
+  delete '/users/removegame' => 'users#removegame'
 
   get 'users/index'
 
