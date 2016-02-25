@@ -1,3 +1,4 @@
+<% if @user.id == session[:user_id] %>
 <h3>Edit your user profile</h3>
 <% flash.each do |name, msg| -%>
   <%= content_tag :div, msg, class: name %>
@@ -97,3 +98,26 @@
 
 <input type='submit' value='Add Address'>	
 </form>
+
+<h3>Current addresses saved:</h3>
+<% @user.addresses.each do |address| %>
+	<h4>Address Title</h4>
+	<p><%= address.street1 %><br>
+	<%= address.street2 %><br>
+	<%= address.city %><br>	
+	<%= address.state %><br>
+	<%= address.zipcode %></p>
+	<a href='/addresses/<%= address.id %>/edit'>Edit this address</a>
+	<% end %>
+
+<h3>Delete your account(cannot be undone!!)</h3>
+<form action='/users/<%= @user.id %>' method='post'>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	<input type='hidden' name='_method' value='delete'>
+	<input type='hidden' name='user_id' value='<%= @user.id %>'>
+	<input type='submit' value='DELETE ACCOUNT'>
+</form>
+
+<% else %>
+<h3>This isn't your profile... why are you here?</h3>
+<% end %>

@@ -1,0 +1,24 @@
+<p><a href='/games/new'>Add a new game!</a></p>
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Game Name</th>
+        <th>Description</th>
+        <th>Players</th>
+        <th>Game Length</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @games.each do |game| %>
+    	<tr>
+    		<td><a href="/games/<%= game.id %>"><%= game.name %></a></td>
+    		<td><%= game.description %></td>
+    		<td><%= game.minplayers %>-<%= game.maxplayers %> players</td>
+    		<td><%= game.length %></td>
+    	</tr>
+	<% end %>
+    </tbody>
+  </table>
+
+

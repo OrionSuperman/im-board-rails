@@ -1,0 +1,60 @@
+<form action='/games/create' method='post' class="form-horizontal" role="form">
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="name">Game Name:</label>
+    <div class="col-sm-4">
+      <input type="text" name="game[name]" class="form-control" id="game" placeholder="Game Name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="minplayers">Minimum Players:</label>
+    <div class="col-sm-2"> 
+      <input type="number" name="game[minplayers]" class="form-control" id="minplayers" placeholder="Minimum Players">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="maxplayers">Maximum Players:</label>
+    <div class="col-sm-2"> 
+      <input type="number" name="game[maxplayers]" class="form-control" id="maxplayers" placeholder="Maximum Players">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="length">Game Length:</label>
+    <div class="col-sm-4"> 
+      <input type="text" name="game[length]" class="form-control" id="length" placeholder="ex. 30 min / 1-2 hours">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="description">Game Description:</label>
+    <div class="col-sm-4"> 
+      <input type="text" name="game[description]" class="form-control" id="description" placeholder="100 character max" maxlength="100">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="image">Game Image:</label>
+    <div class="col-sm-4"> 
+      <input type="text" name="game[image]" class="form-control" id="image" placeholder="www.site.com/img.png" maxlength="100">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="description">About the game:</label>
+    <div class="col-sm-4"> 
+      <textarea name="game[about]" class="form-control" id="about" placeholder="All the info!"></textarea>
+    </div>
+  </div>
+
+
+
+  <div class="form-group"> 
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+
+</form>

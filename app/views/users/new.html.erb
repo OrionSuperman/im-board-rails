@@ -1,2 +1,29 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<h3>User Registration</h3>
+<form action='/users/create' method='post'>
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+<label for='first_name'>First Name</label>
+<input type='text' name='user[first_name]' placeholder='First Name'>
+
+<label for='last_name'>Last Name</label>
+<input type='text' name='user[last_name]' placeholder='Last Name'>
+
+<label for='username'>Username</label>
+<input type='text' name='user[username]' placeholder='username'>
+
+<label for='email'>Email</label>
+<input type='text' name='user[email]' placeholder='email'>
+
+<label for='password'>Password</label>
+<input type='password' name='user[password]' placeholder='Password'>
+
+<label for='password_confirmation'>Confirm Password</label>
+<input type='password' name='user[password_confirmation]' placeholder='Confirm Password'>
+
+<label for='description'>A short description (optional)</label>
+<input type='text' name='user[description]' maxlength='100'>
+
+<label for='about'>About you, anything you would like others to know: </label>
+
+
+<input type='submit' value='Register'>
+</form>

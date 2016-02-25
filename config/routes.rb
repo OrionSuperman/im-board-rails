@@ -1,4 +1,80 @@
 Rails.application.routes.draw do
+
+  #######################
+  # User Reviews
+  #######################
+
+  get 'user_reviews/index'
+
+  get 'user_reviews/show'
+
+  get 'user_reviews/new'
+
+  get 'user_reviews/create'
+
+  get 'user_reviews/edit'
+
+  get 'user_reviews/update'
+
+  get 'user_reviews/destroy'
+
+  #######################
+  # Game Reviews
+  #######################
+
+  get 'game_reviews/index'
+
+  get 'game_reviews/show'
+
+  get 'game_reviews/new'
+
+  get 'game_reviews/create'
+
+  get 'game_reviews/edit'
+
+  get 'game_reviews/update'
+
+  get 'game_reviews/destroy'
+
+  #######################
+  # Game categories
+  #######################
+
+  get 'categories/index'
+
+  get 'categories/new'
+
+  get 'categories/create'
+
+  get 'categories/show'
+
+  get 'categories/edit'
+
+  get 'categories/update'
+
+  get 'categories/destroy'
+
+  #######################
+  # Games
+  #######################
+
+  get 'games/' => 'games#index'
+
+  get 'games/new' => 'games#new'
+
+  post 'games/create' => 'games#create'
+
+  get 'games/:id' => 'games#show'
+
+  get 'games/edit'
+
+  get 'games/update'
+
+  get 'games/destroy'
+
+  #######################
+  # Sessions
+  #######################
   root 'sessions#index'
 
   get '/' => 'sessions#index'
@@ -7,7 +83,11 @@ Rails.application.routes.draw do
 
   get '/logout' => 'sessions#destroy'
 
-  post 'addresses/create'
+  #######################
+  # Addresses
+  #######################
+
+  post 'addresses/create' => 'addresses#create'
 
   get 'addresses/new'
 
@@ -18,6 +98,10 @@ Rails.application.routes.draw do
   patch 'addresses/:id' => 'addresses#update'
 
   delete 'addresses/destroy'
+
+  #######################
+  # Users
+  #######################
 
   post 'user_infos/create'
 
@@ -35,7 +119,7 @@ Rails.application.routes.draw do
 
   patch 'users/:id' => 'users#update'
 
-  delete 'users/destroy'
+  delete 'users/:id' => 'users#destroy'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

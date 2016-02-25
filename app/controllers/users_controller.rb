@@ -43,6 +43,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    if params[:user_id].to_i == session[:user_id].to_i
+      user = User.find(session[:user_id])
+      user.destroy
+      redirect_to '/'
+    else
+      flash[:errors] =  "There is an error preventing account deletion. Please post a trouble ticket and we will resolve the issue."
+      redirect_to "/users/#{session[:user_id]}"
+    end
   end
 
   private
