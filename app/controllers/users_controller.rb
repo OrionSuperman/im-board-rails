@@ -25,6 +25,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @games = @user.games
+    @events = @user.events
   end
 
   def update

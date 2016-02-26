@@ -1,18 +1,20 @@
 Rails.application.routes.draw do
 
-  get 'events/index'
+  get 'events/' => 'events#index'
 
-  get 'events/show'
+  get 'events/new' => 'events#new'
 
-  get 'events/new'
+  post 'events/create' => 'events#create'
 
-  get 'events/create'
+  get 'events/:id/edit' => 'events#edit'
 
-  get 'events/edit'
+  get 'events/:id/join' => 'events#join'
 
-  get 'events/update'
+  get 'events/:id' => 'events#show'
 
-  get 'events/destroy'
+  patch 'events/:id' => 'events#update'
+
+  delete 'events/:id' => 'events#destroy'
 
   #######################
   # User Reviews

@@ -1,2 +1,63 @@
-<h1>Events#new</h1>
-<p>Find me in app/views/events/new.html.erb</p>
+<h3>Create a new event!</h3>
+<form action='/events/create' method='post' class="form-horizontal" role="form">
+<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="title">Event title:</label>
+    <div class="col-sm-6">
+      <input type="text" name="event[title]" class="form-control" id="event" placeholder="Awesome Name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="description">Event description(short blurb):</label>
+    <div class="col-sm-6"> 
+      <input type="text" name="event[description]" class="form-control" id="description" placeholder="Come play games!">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="seats">Available seats(how many can your event hold?):</label>
+    <div class="col-sm-2"> 
+      <input type="number" name="event[seats]" class="form-control" id="seats" placeholder="Maximum Attendees">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="date">Event date:</label>
+    <div class="col-sm-2"> 
+      <input type="date" name="event[date]" class="form-control" id="date">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="time">Event time:</label>
+    <div class="col-sm-2"> 
+      <input type="time" name="event[time]" class="form-control" id="time">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="open">Open or Closed Event:</label>
+    <div class="col-sm-6"> 
+      <select name="event[open]" class="form-control" id="open" >
+      	<option value="closed">Closed event. Location will be hidden until a user is accepted to join.</option>
+      	<option value="open">Open event. Location will be visible to all.</option>
+      	
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="description">About the event:</label>
+    <div class="col-sm-6"> 
+      <textarea name="event[about]" class="form-control" id="about"></textarea>
+    </div>
+  </div>
+
+  <div class="form-group"> 
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Create Event</button>
+    </div>
+  </div>
+
+</form>

@@ -1,2 +1,61 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<h3>User Events</h3>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Event Title</th>
+        <th>Event Host</th>
+        <th>Event Description</th>
+        <th>Seats</th>
+        <th>Attendees</th>
+        <th>Event Time</th>
+        
+        <th>Actions</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+    <% @events.each do |event| %>
+        <tr>
+            <td><a href="/events/<%= event.id %>"><%= event.title %></a></td>
+            <td><a href="/users/<%= event.user.id %>"><%= event.user.username %></a></td>
+            <td><%= event.description %></td>
+            <td><%= event.accepted_count %>/<%= event.seats %> seats filled</td>
+            <td>
+            <% event.accepted_list.each do |user| %>
+					<a href='/users/<%= user.id %>'><%= user.username %></a> 
+				<% end %>
+            </td>
+            <td><%= event.date.strftime('%D') %> <%= event.time.strftime('%l:%m %p') %></td>
+            
+            <td>
+            <% if event.pending_user(@user) or event.accepted_user(@user) %>
+                    
+                    <form action='/events/delete' method='post' class="form-horizontal" role="form">
+                        <input type='hidden' name='event_id' value='<%= event.id %>'>
+                        <input type='hidden' name='_method' value='delete'>
+                        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <div class="form-group"> 
+                        <div class="col-sm-10">
+                          <button type="submit" class="btn btn-default">CANCEL ATTENDANCE</button>
+                        </div>
+                      </div>
+
+                    </form>
+                    <% else %>
+                    <form action='/events/<%= event.id %>/join' method='post' class="form-horizontal" role="form">
+                        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                      <div class="form-group"> 
+                        <div class="col-sm-10">
+                          <button type="submit" class="btn btn-default">Join event!</button>
+                        </div>
+                      </div>
+
+                    </form>
+                    <% end %>
+                    
+            </td>
+            
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
