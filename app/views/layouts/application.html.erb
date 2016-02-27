@@ -67,7 +67,7 @@
         <li class="active"><a href="/games">Game list</a></li>
         <li class="active"><a href="/categories">Categories</a></li>
         <li class="active"><a href="/events">Events</a></li>
-        <li class="active"><a href="/groups">Groups</a></li>
+        <!-- <li class="active"><a href="/groups">Groups</a></li> -->
         <% if session[:user_id] %>
         	<li class="active"><a href="/users/<%= session[:user_id] %>">Profile</a></li>
         <% end %>
@@ -115,6 +115,8 @@
     	<% flash.each do |name, msg| -%>
 			  <%= content_tag :div, msg, class: name %>
 			<% end -%>
+
+      
 		<%= yield %>
 
 

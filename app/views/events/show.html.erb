@@ -3,6 +3,12 @@
 <p>Description: <%= @event.description %> </p>
 <p>About: <%= @event.about %> </p>
 <p>Seats: <%= @event.accepted_count %>/<%= @event.seats %> seats filled</p>
+<p>Location: <%= @event.eventaddress.city %>, <%= @event.eventaddress.state %></p>
+<p>Games: 
+	<% @event.games.each do |game| %>
+		<a href="/games/<%= game.id %>"><%= game.name %></a> 
+	<% end %>
+</p>
 <p>Attendees: 
 	<% @event.accepted_list.each do |user| %>
 		<a href='/users/<%= user.id %>'><%= user.username %></a> 
@@ -11,24 +17,172 @@
 <p>Date: <%= @event.date.strftime('%D') %></p>
 <p>Time: <%= @event.time.strftime('%l:%m %p') %></p>
 
+<h3>Attendees</h3>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Description</th>
+        <th>User Rating</th>
+        <th>Games Attended</th>
+        <% if @event.user == @user %>
+        <th>Actions</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+	<% @event.accepted_list.each do |user| %>
+		<tr>
+			<td><a href="/users/<%= user.id %>"><%= user.username %></a></td>
+			<td><%= user.description %></td>
+			<td>NOT IMPLEMENTED YET</td>
+			<td><%= user.attended_count %></td>
+			<% if @event.user == @user %>
+			<td>
+			<form action='/events/<%= @event.id %>/remove' method='post' class="form-horizontal" role="form">
+	                <input type='hidden' name='event_id' value='<%= @event.id %>'>
+	                <input type='hidden' name='user_id' value='<%= user.id %>'
+	                <input type='hidden' name='_method' value='delete'>
+	                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	              <div class="form-group"> 
+	                <div class="col-sm-10">
+	                  <button type="submit" class="btn btn-default">Remove user from event</button>
+	                </div>
+	              </div>
 
-<% if @event.pending_user(@user) %>
-	<h3>Status</h3>
-	<p>Waiting for host to review your request</p>
-<% elsif @event.accepted_user(@user) %>
-	<h3>Status</h3>
-	<p>You've been accepted to the event</p>
-<% else %>
-	<h3>Want to attend?</h3>
-	<p>To see this event's location, the host has to accept your request to join.</p>
+	            </form>
+			</td>
+			<% end %>
+		</tr>
+	<% end %>
+	</tbody>
+	</table>
 
-	<form action='/events/<%= @event.id %>/join'>
-	<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-	<div class="form-group"> 
-	    <div class="col-sm-12">
-	      <button type="submit" class="btn btn-default">I want to attend!</button>
-	    </div>
-	  </div>
+<% if @event.user == @user %>
+
+	<h3>Event Address</h3>
+	<p><%= @event.eventaddress.street1 %><br>
+			<% if @event.eventaddress.street2.length > 0 %>
+				<%= @event.eventaddress.street2 %><br>
+			<% end %>
+			<%= @event.eventaddress.city %><br>	
+			<%= @event.eventaddress.state %><br>
+			<%= @event.eventaddress.zipcode %></p>
+
+	<% if @event.pending_count > 0 %>
+	<h3>Hey <%= @user.username %>, here are your pending requests:</h3>
+
+	<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Description</th>
+        <th>User Rating</th>
+        <th>Games Attended</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+	<% @event.pending_list.each do |user| %>
+		<tr>
+			<td><a href="/users/<%= user.id %>"><%= user.username %></a></td>
+			<td><%= user.description %></td>
+			<td>NOT IMPLEMENTED YET</td>
+			<td><%= user.attended_count %></td>
+			<td>
+				<form action='/events/<%= @event.id %>/accept' method='post' class="form-horizontal" role="form">
+	                <input type='hidden' name='event_id' value='<%= @event.id %>'>
+	                <input type='hidden' name='user_id' value='<%= user.id %>'>
+	                <input type='hidden' name='_method' value='patch'>
+	                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	              <div class="form-group"> 
+	                <div class="col-sm-10">
+	                  <button type="submit" class="btn btn-default">Accept Request</button>
+	                </div>
+	              </div>
+
+	            </form>
+	        	<form action='/events/<%= @event.id %>/remove' method='post' class="form-horizontal" role="form">
+	                <input type='hidden' name='event_id' value='<%= @event.id %>'>
+	                <input type='hidden' name='user_id' value='<%= user.id %>'
+	                <input type='hidden' name='_method' value='delete'>
+	                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	              <div class="form-group"> 
+	                <div class="col-sm-10">
+	                  <button type="submit" class="btn btn-default">Deny Request</button>
+	                </div>
+	              </div>
+
+	            </form>
+			</td>
+		</tr>
+		<% end %>
+	</tbody>
+	</table>
+	
+	<% else %>
+
+	<h3>No pending requests right now</h3>
+
+	<% end %>
+	<form action='/events/<%= @event.id %>/edit'>
+		<button type="submit" class="btn btn-default">Edit Event and Add Games</button>
 	</form>
+<% else %>
+	<% if @event.pending_user(@user) %>
+		<h3>Status</h3>
+		<p>Waiting for host to review your request</p>
+		<form action='/events/<%= @event.id %>/leave' method='post' class="form-horizontal" role="form">
+	                    <input type='hidden' name='event_id' value='<%= @event.id %>'>
+	                    <input type='hidden' name='_method' value='delete'>
+	                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	                  <div class="form-group"> 
+	                    <div class="col-sm-10">
+	                      <button type="submit" class="btn btn-default">CANCEL ATTENDANCE</button>
+	                    </div>
+	                  </div>
 
+	                </form>
+	<% elsif @event.accepted_user(@user) %>
+		<h3>Status</h3>
+		<p>You've been accepted to the event, here is the location:</p>
+
+		
+			<p><%= @event.eventaddress.street1 %><br>
+			<%= @event.eventaddress.street2 %><br>
+			<%= @event.eventaddress.city %><br>	
+			<%= @event.eventaddress.state %><br>
+			<%= @event.eventaddress.zipcode %></p>
+			
+			
+
+		<form action='/events/<%= @event.id %>/leave' method='post' class="form-horizontal" role="form">
+	                    <input type='hidden' name='event_id' value='<%= @event.id %>'>
+	                    <input type='hidden' name='_method' value='delete'>
+	                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+	                  <div class="form-group"> 
+	                    <div class="col-sm-10">
+	                      <button type="submit" class="btn btn-default">CANCEL ATTENDANCE</button>
+	                    </div>
+	                  </div>
+
+	                </form>
+	<% else %>
+		<% if @user %>
+		<h3>Want to attend?</h3>
+		<p>To see this event's location, the host has to accept your request to join.</p>
+
+		<form action='/events/<%= @event.id %>/join' method='post'>
+		<%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+		<div class="form-group"> 
+		    <div class="col-sm-12">
+		      <button type="submit" class="btn btn-default">I want to attend!</button>
+		    </div>
+		  </div>
+		</form>
+		<% else %>
+		<h3><a href='/register'>Login or Register</a> to join the event!</h3>
+		<% end %>
+	<% end %>
 <% end %>

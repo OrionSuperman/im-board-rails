@@ -7,10 +7,11 @@ class UsersController < ApplicationController
     if user.valid?
       user.save
       session[:user_id] = user.id
+      session[:username] = user.username
       redirect_to "/users/#{user.id}"
     else
       flash[:errors] = user.errors.full_messages
-      redirect_to "/"
+      redirect_to "/register"
     end
   end
 
@@ -18,8 +19,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-    @addresses = @user.addresses
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+      @addresses = @user.addresses
+    end
+    
   end
 
   def show
@@ -29,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
+    user = User.find(session[:user_id])
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
     user.email = params[:email]
@@ -61,10 +65,10 @@ class UsersController < ApplicationController
     owns = Usergame.new(user: user, game: game)
     if owns.valid?
       owns.save
-      redirect_to '/games'
+      redirect_to :back
     else
       flash[:errors] = "I just don't know what went wrong. Submit a trouble ticket and we'll get this resolved. :)"
-      redirect_to '/games'
+      redirect_to :back
     end
   end
 
@@ -72,8 +76,8 @@ class UsersController < ApplicationController
     user = User.find(session[:user_id])
     game = Game.find(params[:game_id])
     own = Usergame.where(user: user).where(game: game)
-    own.destroy
-    redirect_to "/games"
+    own.first.destroy
+    redirect_to :back
   end
 
   private

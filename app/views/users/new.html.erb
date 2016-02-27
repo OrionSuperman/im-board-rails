@@ -1,11 +1,25 @@
 <h3>User Registration</h3>
-<form action='/users/create' method='post'>
+<form action='/users/create' method='post' class="form-horizontal" role="form">
 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+
+<div class="form-group">
+    <label class="control-label col-sm-2" for="first_name">First Name:</label>
+    <div class="col-sm-6"> 
+      <input type="text" name="user[first_name]" class="form-control" id="description" placeholder="First Name">
+    </div>
+</div>
+
+<div class="form-group">
+<div class="col-sm-6">
 <label for='first_name'>First Name</label>
 <input type='text' name='user[first_name]' placeholder='First Name'>
+</div>
+</div>
 
+<div class="form-group">
 <label for='last_name'>Last Name</label>
 <input type='text' name='user[last_name]' placeholder='Last Name'>
+</div>
 
 <label for='username'>Username</label>
 <input type='text' name='user[username]' placeholder='username'>

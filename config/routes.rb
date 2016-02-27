@@ -6,13 +6,23 @@ Rails.application.routes.draw do
 
   post 'events/create' => 'events#create'
 
+  get 'events/search/' => 'events#search'
+
+  post 'events/' => 'events#index'
+
   get 'events/:id/edit' => 'events#edit'
 
-  get 'events/:id/join' => 'events#join'
+  patch 'events/:id' => 'events#update'
 
   get 'events/:id' => 'events#show'
 
-  patch 'events/:id' => 'events#update'
+  post 'events/:id/join' => 'events#join'
+
+  patch 'events/:id/accept' => 'events#accept'
+
+  delete 'events/:id/leave' => 'events#leave'
+
+  delete 'events/:id/remove' => 'events#remove'
 
   delete 'events/:id' => 'events#destroy'
 

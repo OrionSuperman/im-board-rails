@@ -9,19 +9,19 @@
 
 <label for='first_name'>First Name</label>
 <input type='text' name='first_name' value='<%= @user.first_name %>'>
-
+<br>
 <label for='last_name'>Last Name</label>
 <input type='text' name='last_name' value='<%= @user.last_name %>'>
-
+<br>
 <label for='email'>Email</label>
 <input type='text' name='email' value='<%= @user.email %>'>
-
+<br>
 <label for='description'>Description (100 char limit):</label>
 <input type='text' name='description' value='<%= @user.description %>'>
-
+<br>
 <label for='about'>About you! (10,000 limit):</label>
 <textarea name='about'><%= @user.about %></textarea>
-
+<br>
 <input type='submit' value='Update your profile'>
 </form>
 <h3>Add an address if you're interested in hosting games!</h3>
@@ -29,17 +29,21 @@
 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 <input type='hidden' name='address[user_id]' value='<%= session[:user_id] %>'>
 
+<label for='title'>Address Title:</label>
+<input type='text' name='address[title]' placeholder='ex. Home/Dennys'>
+<br>
 <label for='street1'>Street Address</label>
 <input type='text' name='address[street1]'>
-
+<br>
 <label for='street2'>Apt/suite</label>
 <input type='text' name='address[street2]'>
-
+<br>
 <label for='city'>City</label>
 <input type='text' name='address[city]'>
-
+<br>
 <label for='state'>State</label>
 <select name='address[state]'>
+	<option></option>
 	<option value="AL">Alabama</option>
 	<option value="AK">Alaska</option>
 	<option value="AZ">Arizona</option>
@@ -92,16 +96,16 @@
 	<option value="WI">Wisconsin</option>
 	<option value="WY">Wyoming</option>
 </select>
-
+<br>
 <label for='zipcode'>Zipcode</label>
 <input type='number' name='address[zipcode]'>
-
+<br>
 <input type='submit' value='Add Address'>	
 </form>
 
 <h3>Current addresses saved:</h3>
 <% @user.addresses.each do |address| %>
-	<h4>Address Title</h4>
+	<h4><%= address.title %></h4>
 	<p><%= address.street1 %><br>
 	<%= address.street2 %><br>
 	<%= address.city %><br>	

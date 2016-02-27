@@ -1,12 +1,18 @@
 class Event < ActiveRecord::Base
   belongs_to :user
-  has_many :eventusers
+  has_many :eventusers, dependent: :destroy
   has_many :users, through: :eventusers
-  has_many :eventgames
+  has_many :eventgames, dependent: :destroy
   has_many :games, through: :eventgames
   has_many :eventskills
   has_many :skilllevels, through: :eventskills
-  has_one :eventaddress
+  has_one :eventaddress, dependent: :destroy
+
+  validates :date, :time, :title, :seats, :seats, presence: true
+
+  validates :title, length: { in: 2..100 }
+
+  validates :seats, numericality: true
 
   def accepted_user user
   	self.eventusers.each do |thing|

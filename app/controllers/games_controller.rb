@@ -41,6 +41,9 @@ class GamesController < ApplicationController
   end
 
   def show
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    end
     @game = Game.find(params[:id])
     @categories = @game.categories
   end
