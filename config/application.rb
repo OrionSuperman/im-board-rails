@@ -1,5 +1,9 @@
 require File.expand_path('../boot', __FILE__)
 
+require 'open-uri'
+require 'json'
+require "openssl"
+
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"

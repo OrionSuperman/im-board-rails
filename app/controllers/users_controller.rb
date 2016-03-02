@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  # Google maps API key: AIzaSyBT3Ms__V4YEzpSeksmaDlT_YbUBrKlu9E
+
   def index
   end
 

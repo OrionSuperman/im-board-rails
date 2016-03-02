@@ -6,13 +6,26 @@ class Event < ActiveRecord::Base
   has_many :games, through: :eventgames
   has_many :eventskills
   has_many :skilllevels, through: :eventskills
-  has_one :eventaddress, dependent: :destroy
+
+  validates :street1, :street2, :city, length: { maximum: 100 }
+  validates :zipcode, presence: true
+  validates :state, length: { is: 2}, presence: true
 
   validates :date, :time, :title, :seats, :seats, presence: true
 
   validates :title, length: { in: 2..100 }
 
   validates :seats, numericality: true
+
+
+  geocoded_by :address
+  after_validation :geocode
+
+
+  def address
+  	build = "#{self.street1} #{self.street2} #{self.city}, #{self.state} #{self.zipcode}"
+  	return build
+  end
 
   def accepted_user user
   	self.eventusers.each do |thing|

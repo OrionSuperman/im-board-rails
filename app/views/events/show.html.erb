@@ -3,7 +3,7 @@
 <p>Description: <%= @event.description %> </p>
 <p>About: <%= @event.about %> </p>
 <p>Seats: <%= @event.accepted_count %>/<%= @event.seats %> seats filled</p>
-<p>Location: <%= @event.eventaddress.city %>, <%= @event.eventaddress.state %></p>
+<p>Location: <%= @event.city %>, <%= @event.state %></p>
 <p>Games: 
 	<% @event.games.each do |game| %>
 		<a href="/games/<%= game.id %>"><%= game.name %></a> 
@@ -61,13 +61,13 @@
 <% if @event.user == @user %>
 
 	<h3>Event Address</h3>
-	<p><%= @event.eventaddress.street1 %><br>
-			<% if @event.eventaddress.street2.length > 0 %>
-				<%= @event.eventaddress.street2 %><br>
+	<p><%= @event.street1 %><br>
+			<% if @event.street2.length > 0 %>
+				<%= @event.street2 %><br>
 			<% end %>
-			<%= @event.eventaddress.city %><br>	
-			<%= @event.eventaddress.state %><br>
-			<%= @event.eventaddress.zipcode %></p>
+			<%= @event.city %><br>	
+			<%= @event.state %><br>
+			<%= @event.zipcode %></p>
 
 	<% if @event.pending_count > 0 %>
 	<h3>Hey <%= @user.username %>, here are your pending requests:</h3>
@@ -148,11 +148,11 @@
 		<p>You've been accepted to the event, here is the location:</p>
 
 		
-			<p><%= @event.eventaddress.street1 %><br>
-			<%= @event.eventaddress.street2 %><br>
-			<%= @event.eventaddress.city %><br>	
-			<%= @event.eventaddress.state %><br>
-			<%= @event.eventaddress.zipcode %></p>
+			<p><%= @event.street1 %><br>
+			<%= @event.street2 %><br>
+			<%= @event.city %><br>	
+			<%= @event.state %><br>
+			<%= @event.zipcode %></p>
 			
 			
 

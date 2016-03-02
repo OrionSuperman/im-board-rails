@@ -33,7 +33,7 @@
   <div class="form-group">
     <label class="control-label col-sm-2" for="time">Event time:</label>
     <div class="col-sm-2"> 
-      <input type="time" name="event[time]" class="form-control" id="time" value="<%= @event.time %>">
+      <input type="text" name="event[time]" class="form-control" id="time" value="<%= @event.time %>">
     </div>
   </div>
 
@@ -58,28 +58,28 @@
   	<div class="form-group">
 		<label class="control-label col-sm-2" for="title">Location Name:</label>
 		<div class="col-sm-6"> 
-			<input type="text" name="eventaddress[title]" class="form-control" id="title" value="<%= @event.eventaddress.title %>">
+			<input type="text" name="event[title]" class="form-control" id="title" value="<%= @event.title %>">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="street1">Street Address:</label>
 		<div class="col-sm-6"> 
-			<input type="text" name="eventaddress[street1]" class="form-control" id="street1" value="<%= @event.eventaddress.street1 %>">
+			<input type="text" name="event[street1]" class="form-control" id="street1" value="<%= @event.street1 %>">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="street2">Apt/Suite:</label>
 		<div class="col-sm-6"> 
-			<input type="text" name="eventaddress[street2]" class="form-control" id="street2" value="<%= @event.eventaddress.street2 %>">
+			<input type="text" name="event[street2]" class="form-control" id="street2" value="<%= @event.street2 %>">
 		</div>
 	</div>
 
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="city">City:</label>
 		<div class="col-sm-6"> 
-			<input type="text" name="eventaddress[city]" class="form-control" id="city" value="<%= @event.eventaddress.city %>">
+			<input type="text" name="event[city]" class="form-control" id="city" value="<%= @event.city %>">
 		</div>
 	</div>
 
@@ -87,8 +87,8 @@
 	<div class="form-group">
 	    <label class="control-label col-sm-2" for="state">State:</label>
 	    <div class="col-sm-6"> 
-	      <select name="eventaddress[state]" class="form-control" id="state" >
-	      	<option value="<%= @event.eventaddress.state %>"><%= @event.eventaddress.state %></option>
+	      <select name="event[state]" class="form-control" id="state" >
+	      	<option value="<%= @event.state %>"><%= @event.state %></option>
 			<option value="AL">Alabama</option>
 			<option value="AK">Alaska</option>
 			<option value="AZ">Arizona</option>
@@ -147,7 +147,7 @@
 	<div class="form-group">
 		<label class="control-label col-sm-2" for="zipcode">Zipcode:</label>
 		<div class="col-sm-6"> 
-			<input type="number" name="eventaddress[zipcode]" class="form-control" id="zipcode" value="<%= @event.eventaddress.zipcode %>">
+			<input type="number" name="event[zipcode]" class="form-control" id="zipcode" value="<%= @event.zipcode %>">
 		</div>
 	</div>
 
