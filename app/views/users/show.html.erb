@@ -37,9 +37,8 @@
             </td>
             <td><%= event.date.strftime('%D') %> <%= event.time.strftime('%l:%m %p') %></td>
             <td>
-                <% if event.eventaddress %>
-                    <%= event.eventaddress.city %>, <%= event.eventaddress.state %>
-                <% end %>
+                
+                <%= event.city %>, <%= event.state %>
             </td>
             <td>
                 <% if event.pending_user(@user) %>
@@ -124,9 +123,8 @@
             </td>
             <td><%= event.date.strftime('%D') %> <%= event.time.strftime('%l:%m %p') %></td>
             <td>
-                <% if event.eventaddress %>
-                    <%= event.eventaddress.title %>
-                <% end %>
+            
+                <%= event.city %> <%= event.state %>
             </td>
             <td>
             <% if event.user == @user %>

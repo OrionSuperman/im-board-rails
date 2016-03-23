@@ -1,2 +1,46 @@
 <h1>Welcome to I'm Board</h1>
+<p><%= @events %></p>
+<script src='https://maps.googleapis.com/maps/api/js?v=3.exp'></script>
+<div style='overflow:hidden;height:600px;width:800px;'>
+<div id='gmap_canvas' style='height:600px;width:800px;'>
+	
+</div>
+<style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+</div>
+<script type='text/javascript'>
+function init_map(){
+	var myOptions = {zoom:4,center:new google.maps.LatLng(41.64007856917599,-96.50390662500003),mapTypeId: google.maps.MapTypeId.ROADMAP};
+	map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);
+	
+	}
+	google.maps.event.addDomListener(window, 'load', init_map);
+
+
+
+
+var elements = <%= @events %>;
+console.log(events);
+console.log('##################################################');
+
+function addMarkers(jsonList) {
+  if (jsonList.length > 0) {
+    var element = jsonList.pop();
+    var pos = {lat: element['latitude'], lng: element['longitude']}
+    var marker = new google.maps.Marker({
+    	position: pos,
+    	map: map
+    });
+    console.log(element['latitude'])
+    markers.push(marker);
+    setTimeout(function() {
+      addMarkers(jsonList);
+    }, 0);
+  }
+}
+
+var events = '<%= @events %>';
+addMarkers(events)
+
+
+</script>
 <img src="http://i.kinja-img.com/gawker-media/image/upload/s--4QkE3iwx--/c_scale,fl_progressive,q_80,w_800/17kpi3rdamei8jpg.jpg" alt="Get your social game on!">

@@ -1,5 +1,5 @@
 require File.expand_path('../boot', __FILE__)
-
+# Google API key AIzaSyBT3Ms__V4YEzpSeksmaDlT_YbUBrKlu9E
 require 'open-uri'
 require 'json'
 require "openssl"

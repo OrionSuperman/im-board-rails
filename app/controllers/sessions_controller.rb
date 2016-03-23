@@ -1,5 +1,7 @@
 class SessionsController < ApplicationController
   def index
+    @events = Event.all.to_json
+    # render json: @events
   end
 
   def register

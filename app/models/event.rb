@@ -7,8 +7,8 @@ class Event < ActiveRecord::Base
   has_many :eventskills
   has_many :skilllevels, through: :eventskills
 
-  validates :street1, :street2, :city, length: { maximum: 100 }
-  validates :zipcode, presence: true
+  validates :street1, :street2, :zipcode, length: { maximum: 100 }
+  validates :city, presence: true, length: { maximum: 100 }
   validates :state, length: { is: 2}, presence: true
 
   validates :date, :time, :title, :seats, :seats, presence: true

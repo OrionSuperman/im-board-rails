@@ -1,12 +1,13 @@
 
 class EventsController < ApplicationController
   def index
-    if params[:state]
-      state = params[:state]
-      @events = Event.joins(:eventaddress).where("eventaddresses.state=?", state)
+    if params[:search_location]
+      
+      @events = Event.near("#{params[:search_location]}", params[:distance])
     else
 
-      @events = Event.all
+      @events = Event.includes(:games)
+      # render json: @events
       # @events = Event.joins("LEFT JOIN eventgames ON events.id = eventgames.event_id").select("events.*").joins("LEFT JOIN games ON eventgames.game_id = games.id").select("games.id as gameid").group("games.id").group("events.id")
 
       # @testing = Event.connection.select_all("
